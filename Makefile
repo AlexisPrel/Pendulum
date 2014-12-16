@@ -33,7 +33,7 @@ git-update:
 	# Please make sure you have updated README.md
 	#indent *.c
 	git add .
-	git commit -m date
+	git commit -m 'update' #date
 	git push origin master
 
 clean:
