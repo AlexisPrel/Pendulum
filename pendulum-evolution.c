@@ -8,12 +8,12 @@ int func (double t, const double y[], double f[], void *params);
 
 double pendulum_evolution (char filename[], double O)
 {
-    size_t neqs = 2;            // number of equations 
+    size_t neqs = 2;                            // number of equations 
     double eps_abs = 1.e-8, eps_rel = 0.;       // desired precision
-    double stepsize = 1e-6;     // initial integration step
-    double t = 0., t1 = 100. * M_PI / O;        // time interval. Omega*tau = omega*t from 0 to 10pi (5 oscillations) 
+    double stepsize = 1.e-4;                    // initial integration step
+    double t = 0., t1 = 10.*M_PI; // O;       // time interval. Omega*tau = omega*t from 0 to 1000 pi (500 natural oscillations) 
     int status;
-    FILE *out;                  // output file
+    FILE *out;                                  // output file
     out = fopen (filename, "w+");
 
     // initial conditions

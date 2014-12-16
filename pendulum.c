@@ -31,47 +31,49 @@ Adimensional equations
 
 double pendulum_evolution (char filename[], double O);
 
-int stable_pos (double O)
+char stable_pos(double O)
 {
     double mean_phi = pendulum_evolution ("out", O);
-    if (fabs (mean_phi - M_PI) < M_PI / 30.)
-        return 1;               //up
-    else if (fabs (mean_phi - 0) < M_PI / 30.)
-        return 0;               //down
-    else
-        return 2;               //diverging
+    if (fabs (mean_phi - M_PI) < M_PI/30.)	// if close enough from pi -> up
+        return 'u';
+    else if (fabs(mean_phi - 0) < M_PI/30.)	// idem with 0 -> down
+        return 'd';
+    else									// otherwise -> diverging
+        return 'x';
 }
 
-int main (void)
+int main(void)
 {
     //parameters
-    double O = 100.;            //to be variated
+    double O = 150.;            //to be variated
 
     double O1 = 100., O2 = 200.;        //band (to be shortened)
     double tolerance = 0.05 * O1;       //width of desired band
 
-
-    //typical graphs
-    int i = pendulum_evolution ("out_1", O1);
-    i = pendulum_evolution ("out_2", O2);
-    int pos;
-    int pos1 = stable_pos (O1), pos2 = stable_pos (O2);
-    printf ("%f: %i\n%f: %i\n", O1, pos1, O2, pos2);
+    //typical graphs: i is not useful, but we want the "out_1" "out_2" files for graphs
+    int i = pendulum_evolution("out_1", O1);
+    i = pendulum_evolution("out_2", O2);
 
     //main loop: proceed by dichotomy
+    char pos;
+    char pos1 = stable_pos(O1), pos2 = stable_pos(O2);
+    	// explanatory message
+    	printf("d: down, u: up, x: diverging\n");
+    printf("%f: %c\n%f: %c\n", O1, pos1, O2, pos2);
+    
     while ((O2 - O1) > tolerance)       // until desired precision is achieved
     {
-        pos = stable_pos (O);
+        pos = stable_pos(O);
         if (pos == pos1)        // tests band edges  ...
             O1 = O;             // ... and narrow it ...
-        else if (pos == pos2)   // 
+        else if (pos == pos2)
             O2 = O;             // ... one way or another.
         else
         {
-            printf ("! solution is not in the given band\n");
+            printf("! solution is not in the given band\n");
             break;
         }
-        printf ("%f: %i\n", O, pos);
+        printf("%f: %c\n", O, pos);
         O = (O1 + O2) / 2.;     // next iteration in the new middle of the band
     }
     // printing result

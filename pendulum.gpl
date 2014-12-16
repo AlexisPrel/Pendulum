@@ -1,11 +1,16 @@
+set style data line
 unset key
 
 set term png
+
+# lower edge of the band
 set o "pendulum_1.png"
 p "out_1"
 
+# upper edge of the band
 set o "pendulum_2.png"
 p "out_2"
 
+# last computed
 set o "pendulum.png"
 p "out"
