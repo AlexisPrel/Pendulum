@@ -1,0 +1,11 @@
+unset key
+
+set term png
+set o "pendulum_100.png"
+p "out_100"
+
+set o "pendulum_200.png"
+p "out_200"
+
+set o "pendulum.png"
+p "out"

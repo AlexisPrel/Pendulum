@@ -1,0 +1,8 @@
+*
+!*.c
+!*.md
+!*.gpl
+!*.png
+!out*
+!Makefile
+!.gitignore
