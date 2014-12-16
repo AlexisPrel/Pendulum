@@ -31,7 +31,7 @@ git-first:
 	
 git-update:
 	# Please make sure you have updated README.md
-	indent *.c
+	#indent *.c
 	git push origin master
 
 clean:
